@@ -9,10 +9,16 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Página inicial</a>
+        <a class="nav-link"
+           [routerLink]="'pagina-inicial'"
+           [routerLinkActive]="'active'" >Pagina inicial
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Visualizar Tarefas</a>
+        <a class="nav-link"
+           [routerLink]="'visualizar-tarefa'"
+           [routerLinkActive]="'active'" >Visualizar Tarefas
+        </a>
       </li>
     </ul>
   </div>
