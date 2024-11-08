@@ -20,11 +20,11 @@
   </thead>
 
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Estudar Bootstrap</td>
-        <td>31/10/2024</td>
-        <td>Em andamento</td>
+      <tr *ngFor="let t of tarefas; let i = index">
+        <th scope="row">{{ i + 1}}</th>
+        <td> {{ t.titulo}} </td>
+        <td> {{t.dataInicio}} </td>
+        <td> {{t.status}} </td>
         <td>
           <button class="btn btn-danger rounded-circle">
             <i class="fas fa-trash-alt"></i>
@@ -67,6 +67,20 @@
                 Data Conclusao
               </label>
               <input type="datetime-local" class="form-control" id="dateConclusaoTarefa">
+            </div>
+
+            <div class="md-3 col">
+              <label>Status</label>
+              <select class="form-control">
+                <option value="NOVA"> Nova </option>
+                <option value="EM_ANDAMENTO"> Em andamento </option>
+                <option value="CONCLUIDA"> Concluida </option>
+              </select>
+            </div>
+
+            <div class="mb-12 col-md-12"> <!--Para adicionar um espaço de texto-->
+              <label class="form-check-label"> Descrição </label>
+              <textarea class="form-control" id="descricaoTarefa" rows="3"> </textarea>
             </div>
 
           </div>
