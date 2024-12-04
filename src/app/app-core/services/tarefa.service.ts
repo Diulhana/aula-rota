@@ -4,6 +4,7 @@ import {Tarefa} from "../model/tarefa";
 @Injectable({
   providedIn: 'root'
 })
+
 export class TarefaService {
   private listaDeTarefas: String[] = [];
 
