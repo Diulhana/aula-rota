@@ -1,30 +1,39 @@
 import { Injectable } from '@angular/core';
 import {Tarefa} from "../model/tarefa";
+import Dexie from "dexie";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class TarefaService {
+export class TarefaService extends Dexie {
   private listaDeTarefas: String[] = [];
 
   private tarefasTeste: Tarefa[] = [];
 
-  constructor() { }
+  tarefasDB: Dexie.Table<Tarefa, number>;
+  constructor() {
+    super('TarefaDB');
+    this.version(1).stores({
+      tarefas: '++id, titulo, dataInicio, status, descricao',
+    });
 
-  addtarefa(tarefa: string){
-    this.listaDeTarefas.push(tarefa);
-    console.log("TAREFAS ADICIONADAS", this.listaDeTarefas);
+    this.tarefasDB = this.table('tarefas');
   }
 
-  populartabela(): Tarefa[]{
-    let t: Tarefa = new Tarefa('Estudar Angular', '07/12/2024', '20/12/2024', 'Essa tarefa destinada para estudar o framework Angular', 'NOVA', 0);
+  async adicionartarefa(tarefa: Tarefa): Promise<number>{
+    return await this.tarefasDB.add(tarefa);
+  }
 
-    let t2: Tarefa = new Tarefa('Estudar Bootstrap', '07/12/2024', '20/12/2024', 'Essa tarefa destinada para estudar o framework Bootstrap', 'Em andamento', 0);
+  async buscarTarefa():Promise<Tarefa[]>{
+    return await this.tarefasDB.toArray();
+  }
 
-    let t3: Tarefa = new Tarefa('Tarefa de teste para popular tabela', '07/12/2024', '20/12/2024', 'Essa tarefa destinada para testes', 'concluida', 0);
+  async removerTarefa(id: number): Promise<void>{ //se n retornar nada é pq deu certo
+    return await this.tarefasDB.delete(id);
+  }
 
-    this.tarefasTeste.push(t, t2, t3);
-    return this.tarefasTeste;
+  async atualizarTarefa(id: number, tarefa: Tarefa): Promise<number>{ //apenas vai atualizar os dados e mandar os novos
+    return await this.tarefasDB.update(id, tarefa);
   }
 }

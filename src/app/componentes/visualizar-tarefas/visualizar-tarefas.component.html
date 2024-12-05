@@ -2,7 +2,7 @@
 <div class="container mt-4">
   <h2>Lista de Tarefas
     <button class="btn btn-primary btn-arrendondamento"
-            (click)="openModal()">
+            (click)="openModal(); formularioTarefa.reset()">
       <i class="fas fa-plus"></i>
       Nova Tarefa
     </button>
@@ -21,10 +21,10 @@
     <tr *ngFor="let t of tarefas; let i = index">
       <th scope="row"> {{ i }}</th>
       <td>{{ t.titulo }}</td>
-      <td>{{ t.dataInicio }}</td>
+      <td>{{ t.dataInicio | date: 'dd/MM/yyyy'}}</td>
       <td> {{ t.status}}</td>
       <td>
-        <button class="btn btn-danger rounded-circle"><i class="fas fa-trash-alt"></i></button>
+        <button (click)="excluirTarefa(t.id)" class="btn btn-danger rounded-circle"><i class="fas fa-trash-alt"></i></button>
         - <button class="btn btn-warning rounded-circle"><i class="fas fa-edit"></i></button>
       </td>
     </tr>
